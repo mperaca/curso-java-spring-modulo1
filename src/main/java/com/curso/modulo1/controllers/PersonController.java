@@ -25,29 +25,29 @@ public class PersonController {
 	private PersonService service;
 	
 	@GetMapping
-	public List<PersonModel> listAll() {
+	public List<PersonModel> listAll() throws Exception {
 		return service.retornaTodasPessoas();
 	}
 	
 	@GetMapping("/{id}")
-	public PersonModel listById(@PathVariable Long id) {
+	public PersonModel listById(@PathVariable Long id) throws Exception {
 		return service.retornaPessoa(id);
 	}
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public PersonModel create(@RequestBody PersonModel person) {
+	public PersonModel create(@RequestBody PersonModel person) throws Exception {
 		return service.criaPessoa(person);
 	}
 
 	@PutMapping("/{id}")	
-	public PersonModel update(@PathVariable Long id, @RequestBody PersonModel person) {
+	public PersonModel update(@PathVariable Long id, @RequestBody PersonModel person) throws Exception {
 		return service.alteraPessoa(id, person);
 	}
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable Long id) {
+	public void delete(@PathVariable Long id) throws Exception {
 		service.excluiPessoa(id);
 	}
 

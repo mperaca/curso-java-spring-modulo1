@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.curso.modulo1.exceptions.ResourceNotFoundException;
 import com.curso.modulo1.models.PersonModel;
 import com.curso.modulo1.repositories.PersonRepository;
 
@@ -19,7 +20,7 @@ public class PersonService {
 	}
 	
 	public PersonModel retornaPessoa(Long id) {				
-		return personRepository.findById(id).get();		
+		return personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!")); 		
 	}
 	
 	public PersonModel criaPessoa(PersonModel person) {		
@@ -28,8 +29,7 @@ public class PersonService {
 	
 	public PersonModel alteraPessoa(Long id, PersonModel person) {
 		
-		PersonModel personFind = personRepository.findById(id).get();
-		personFind.setId(id);
+		PersonModel personFind = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
 		personFind.setFirstName(person.getFirstName());
 		personFind.setLastName(person.getLastName());
 		personFind.setAddress(person.getAddress());
